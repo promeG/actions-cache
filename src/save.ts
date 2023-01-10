@@ -26,13 +26,23 @@ async function saveCache() {
 
     const base32 = require('base32')
 
+    const repoNameFromEnv = process.env['GITHUB_REPOSITORY']
+    const repoBranchFromEnv = process.env['GITHUB_HEAD_REF']
+    const repoCommitFromEnv = process.env['GITHUB_SHA']
+    core.info(`repoNameFromEnv: ${repoNameFromEnv}`);
+    core.info(`repoBranchFromEnv: ${repoBranchFromEnv}`);
+    core.info(`repoCommitFromEnv: ${repoCommitFromEnv}`);
+    for (const [key, value] of Object.entries(process.env)) {
+      core.info(key + " : " + value);
+    }
+
     const repoName = core.getInput("repoName", { required: true });
     const repoBranch = core.getInput("repoName", { required: true });
     const repoBranchBase32 = base32.encode(repoBranch)
     const repoCommit = core.getInput("repoCommit", { required: true });
     // Inputs are re-evaluted before the post action, so we want the original key
     const key = core.getState(State.PrimaryKey);
-    const keyBase32 = base32.encode(key);
+    const keyBase32 = base32.encode(key);  // 并非标准的base32算法，参考：https://github.com/agnoster/base32-js
     // const useFallback = getInputAsBoolean("use-fallback");
     const paths = getInputAsArray("path");
 
@@ -66,7 +76,7 @@ async function saveCache() {
       core.info(`Cache Key: ${key}`);
 
       await createTar(archiveFolderReal, cachePaths, compressionMethod);
-      if (true || core.isDebug()) {
+      if (core.isDebug()) {
         await listTar(archivePath, compressionMethod);
       }
 
