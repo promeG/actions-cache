@@ -49816,6 +49816,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(260));
+const state_1 = __nccwpck_require__(552);
 const utils_1 = __nccwpck_require__(6928);
 process.on("uncaughtException", (e) => core.info("warning: " + e.message));
 function restoreCache() {
@@ -49828,7 +49829,7 @@ function restoreCache() {
             const restoreKeys = utils_1.getInputAsArray("restore-keys");
             try {
                 // Inputs are re-evaluted before the post action, so we want to store the original values
-                // core.saveState(State.PrimaryKey, key);
+                core.saveState(state_1.State.PrimaryKey, key);
                 // core.saveState(State.AccessKey, core.getInput("accessKey"));
                 // core.saveState(State.SecretKey, core.getInput("secretKey"));
                 // core.saveState(State.SessionToken, core.getInput("sessionToken"));

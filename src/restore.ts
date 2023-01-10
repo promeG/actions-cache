@@ -27,7 +27,7 @@ async function restoreCache() {
 
     try {
       // Inputs are re-evaluted before the post action, so we want to store the original values
-      // core.saveState(State.PrimaryKey, key);
+      core.saveState(State.PrimaryKey, key);
       // core.saveState(State.AccessKey, core.getInput("accessKey"));
       // core.saveState(State.SecretKey, core.getInput("secretKey"));
       // core.saveState(State.SessionToken, core.getInput("sessionToken"));
