@@ -19,22 +19,22 @@ process.on("uncaughtException", (e) => core.info("warning: " + e.message));
 
 async function restoreCache() {
   try {
-    const bucket = core.getInput("bucket", { required: true });
+    // const bucket = core.getInput("bucket", { required: true });
     const key = core.getInput("key", { required: true });
-    const useFallback = getInputAsBoolean("use-fallback");
+    // const useFallback = getInputAsBoolean("use-fallback");
     const paths = getInputAsArray("path");
     const restoreKeys = getInputAsArray("restore-keys");
 
     try {
       // Inputs are re-evaluted before the post action, so we want to store the original values
-      core.saveState(State.PrimaryKey, key);
-      core.saveState(State.AccessKey, core.getInput("accessKey"));
-      core.saveState(State.SecretKey, core.getInput("secretKey"));
-      core.saveState(State.SessionToken, core.getInput("sessionToken"));
+      // core.saveState(State.PrimaryKey, key);
+      // core.saveState(State.AccessKey, core.getInput("accessKey"));
+      // core.saveState(State.SecretKey, core.getInput("secretKey"));
+      // core.saveState(State.SessionToken, core.getInput("sessionToken"));
 
-      const mc = newMinio();
+      // const mc = newMinio();
 
-      const compressionMethod = await utils.getCompressionMethod();
+/*      const compressionMethod = await utils.getCompressionMethod();
       const cacheFileName = utils.getCacheFileName(compressionMethod);
       const archivePath = path.join(
         await utils.createTempDirectory(),
@@ -63,28 +63,28 @@ async function restoreCache() {
 
       await extractTar(archivePath, compressionMethod);
       setCacheHitOutput(matchingKey === key);
-      core.info("Cache restored from s3 successfully");
+      core.info("Cache restored from s3 successfully");*/
     } catch (e) {
       core.info("Restore s3 cache failed: " + e.message);
       setCacheHitOutput(false);
-      if (useFallback) {
-        if (isGhes()) {
-          core.warning("Cache fallback is not supported on Github Enterpise.");
-        } else {
-          core.info("Restore cache using fallback cache");
-          const fallbackMatchingKey = await cache.restoreCache(
-            paths,
-            key,
-            restoreKeys
-          );
-          if (fallbackMatchingKey) {
-            setCacheHitOutput(fallbackMatchingKey === key);
-            core.info("Fallback cache restored successfully");
-          } else {
-            core.info("Fallback cache restore failed");
-          }
-        }
-      }
+      // if (useFallback) {
+      //   if (isGhes()) {
+      //     core.warning("Cache fallback is not supported on Github Enterpise.");
+      //   } else {
+      //     core.info("Restore cache using fallback cache");
+      //     const fallbackMatchingKey = await cache.restoreCache(
+      //       paths,
+      //       key,
+      //       restoreKeys
+      //     );
+      //     if (fallbackMatchingKey) {
+      //       setCacheHitOutput(fallbackMatchingKey === key);
+      //       core.info("Fallback cache restored successfully");
+      //     } else {
+      //       core.info("Fallback cache restore failed");
+      //     }
+      //   }
+      // }
     }
   } catch (e) {
     core.setFailed(e.message);

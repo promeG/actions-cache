@@ -1,5 +1,22 @@
 # actions-s3-cache
 
+
+## Note on release
+
+This project follows semantic versioning. Backward incompatible changes will
+increase major version.
+
+There is also the `v1` compatible tag that's always pinned to the latest
+`v1.x.y` release.
+
+It's done using:
+
+```
+tsc && ncc build -o dist/restore src/restore.ts && ncc build -o dist/save src/save.ts
+git tag -a v1 -f -m "v1 compatible release"
+git push -f --tags
+```
+
 This action enables caching dependencies to s3 compatible storage, e.g. minio, AWS S3
 
 It also has github [actions/cache@v2](https://github.com/actions/cache) fallback if s3 save & restore fails
@@ -55,17 +72,4 @@ When using this with Amazon S3, the following permissions are necessary:
  - `s3:ListBucketMultipartUploads`
  - `s3:ListMultipartUploadParts`
 
-# Note on release
 
-This project follows semantic versioning. Backward incompatible changes will
-increase major version.
-
-There is also the `v1` compatible tag that's always pinned to the latest
-`v1.x.y` release.
-
-It's done using:
-
-```
-git tag -a v1 -f -m "v1 compatible release"
-git push -f --tags
-```
