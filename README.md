@@ -39,15 +39,11 @@ jobs:
     runs-on: [ubuntu-latest]
 
     steps:
-      - uses: tespkg/actions-cache@v1
+      - uses: promeG/actions-cache@v1
         with:
-          endpoint: play.min.io # optional, default s3.amazonaws.com
-          insecure: false # optional, use http instead of https. default false
-          accessKey: "Q3AM3UQ867SPQQA43P2F" # required
-          secretKey: "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG" # required
-          sessionToken: "AQoDYXdzEJraDcqRtz123" # optional
-          bucket: actions-cache # required
-          use-fallback: true # optional, use github actions cache fallback, default true
+          repoName: ${{ github.repository }}
+          repoBranch: ${{ github.head_ref }}
+          repoCommit: ${{ github.sha }}
 
           # actions/cache compatible properties: https://github.com/actions/cache
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}

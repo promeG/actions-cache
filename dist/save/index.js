@@ -50000,7 +50000,10 @@ function saveCache() {
                   core.info("Cache was exact key match, not saving");
                   return;
                 }*/
-            // const bucket = core.getInput("bucket", { required: true });
+            const repoName = core.getInput("repoName", { required: true });
+            const repoBranch = core.getInput("repoName", { required: true });
+            const repoBranchBase64 = new Buffer(repoBranch).toString('base64');
+            const repoCommit = core.getInput("repoCommit", { required: true });
             // Inputs are re-evaluted before the post action, so we want the original key
             const key = core.getState(state_1.State.PrimaryKey);
             // const useFallback = getInputAsBoolean("use-fallback");
@@ -50018,7 +50021,7 @@ function saveCache() {
                 core.info(`${JSON.stringify(cachePaths)}`);
                 const archiveFolder = yield utils.createTempDirectory();
                 const cacheFileName = utils.getCacheFileName(compressionMethod);
-                const archivePath = path.join(archiveFolder, cacheFileName);
+                const archivePath = path.join(archiveFolder, repoName, repoBranchBase64, repoCommit, cacheFileName);
                 core.info(`Archive Path: ${archivePath}`);
                 yield tar_1.createTar(archiveFolder, cachePaths, compressionMethod);
                 if (true) {

@@ -21,7 +21,10 @@ async function saveCache() {
       return;
     }*/
 
-    // const bucket = core.getInput("bucket", { required: true });
+    const repoName = core.getInput("repoName", { required: true });
+    const repoBranch = core.getInput("repoName", { required: true });
+    const repoBranchBase64 = new Buffer(repoBranch).toString('base64')
+    const repoCommit = core.getInput("repoCommit", { required: true });
     // Inputs are re-evaluted before the post action, so we want the original key
     const key = core.getState(State.PrimaryKey);
     // const useFallback = getInputAsBoolean("use-fallback");
@@ -42,7 +45,7 @@ async function saveCache() {
 
       const archiveFolder = await utils.createTempDirectory();
       const cacheFileName = utils.getCacheFileName(compressionMethod);
-      const archivePath = path.join(archiveFolder, cacheFileName);
+      const archivePath = path.join(archiveFolder, repoName, repoBranchBase64, repoCommit, cacheFileName);
 
       core.info(`Archive Path: ${archivePath}`);
 
