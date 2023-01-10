@@ -50252,6 +50252,7 @@ const state_1 = __nccwpck_require__(552);
 const io = __importStar(__nccwpck_require__(6451));
 const utils_1 = __nccwpck_require__(6928);
 const fs = __importStar(__nccwpck_require__(7147));
+const constants_1 = __nccwpck_require__(9082);
 process.on("uncaughtException", (e) => core.info("warning: " + e.message));
 function saveCache() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -50276,7 +50277,8 @@ function saveCache() {
                 //   secretKey: core.getState(State.SecretKey),
                 //   sessionToken: core.getState(State.SessionToken),
                 // });
-                const compressionMethod = yield utils.getCompressionMethod();
+                // const compressionMethod = await utils.getCompressionMethod();
+                const compressionMethod = constants_1.CompressionMethod.Gzip;
                 const cachePaths = yield utils.resolvePaths(paths);
                 core.info("Cache Paths:");
                 core.info(`${JSON.stringify(cachePaths)}`);

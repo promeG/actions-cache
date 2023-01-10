@@ -13,6 +13,7 @@ import {
   getInputAsBoolean,
 } from "./utils";
 import * as fs from "fs";
+import {CompressionMethod} from "@actions/cache/lib/internal/constants";
 
 process.on("uncaughtException", (e) => core.info("warning: " + e.message));
 
@@ -42,7 +43,8 @@ async function saveCache() {
       //   sessionToken: core.getState(State.SessionToken),
       // });
 
-      const compressionMethod = await utils.getCompressionMethod();
+      // const compressionMethod = await utils.getCompressionMethod();
+      const compressionMethod = CompressionMethod.Gzip;
       const cachePaths = await utils.resolvePaths(paths);
       core.info("Cache Paths:");
       core.info(`${JSON.stringify(cachePaths)}`);
