@@ -1090,6 +1090,13 @@
   "resolved" "https://repo.huaweicloud.com/repository/npm/balanced-match/-/balanced-match-1.0.2.tgz"
   "version" "1.0.2"
 
+"base32@^0.0.7":
+  "integrity" "sha512-ire9Jmh+BsUk4Idu0wu6aKeJJr/2j28Mlu0qqJBd1SyOGxW/VRotkfwAv3/KE/entVlNwCefs9bxi7kBeCIxTQ=="
+  "resolved" "https://repo.huaweicloud.com/repository/npm/base32/-/base32-0.0.7.tgz"
+  "version" "0.0.7"
+  dependencies:
+    "minimist" "^1.2.6"
+
 "before-after-hook@^2.2.0":
   "integrity" "sha512-NzUnlZexiaH/46WDhANlyR2bXRopNg4F/zuSA3OpZnllCUgRaOF2znDioDWrmbNVsuZk6l9pMquQB38cfBZwkQ=="
   "resolved" "https://repo.huaweicloud.com/repository/npm/before-after-hook/-/before-after-hook-2.2.3.tgz"
@@ -2345,7 +2352,7 @@
   dependencies:
     "brace-expansion" "^1.1.7"
 
-"minimist@^1.2.5":
+"minimist@^1.2.5", "minimist@^1.2.6":
   "integrity" "sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q=="
   "resolved" "https://repo.huaweicloud.com/repository/npm/minimist/-/minimist-1.2.6.tgz"
   "version" "1.2.6"

@@ -11,6 +11,7 @@ import {
   isExactKeyMatch,
   getInputAsBoolean,
 } from "./utils";
+import * as fs from "fs";
 
 process.on("uncaughtException", (e) => core.info("warning: " + e.message));
 
@@ -21,9 +22,11 @@ async function saveCache() {
       return;
     }*/
 
+    const base32 = require('base32')
+
     const repoName = core.getInput("repoName", { required: true });
     const repoBranch = core.getInput("repoName", { required: true });
-    const repoBranchBase64 = new Buffer(repoBranch).toString('base64')
+    const repoBranchBase32 = base32.encode('base64')
     const repoCommit = core.getInput("repoCommit", { required: true });
     // Inputs are re-evaluted before the post action, so we want the original key
     const key = core.getState(State.PrimaryKey);
@@ -45,7 +48,9 @@ async function saveCache() {
 
       const archiveFolder = await utils.createTempDirectory();
       const cacheFileName = utils.getCacheFileName(compressionMethod);
-      const archivePath = path.join(archiveFolder, repoName, repoBranchBase64, repoCommit, cacheFileName);
+      const archiveFolderReal = path.join(archiveFolder, repoName, repoBranchBase32, repoCommit);
+      fs.mkdirSync(archiveFolderReal, { recursive: true });
+      const archivePath = path.join(archiveFolderReal, cacheFileName);
 
       core.info(`Archive Path: ${archivePath}`);
 

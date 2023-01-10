@@ -12,6 +12,11 @@ There is also the `v1` compatible tag that's always pinned to the latest
 It's done using:
 
 ```
+npm install @actions/core
+npm install @actions/github
+npm install base32
+
+
 tsc && ncc build -o dist/restore src/restore.ts && ncc build -o dist/save src/save.ts
 git add .
 git commit -m "Use vercel/ncc"
