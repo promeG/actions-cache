@@ -50282,7 +50282,7 @@ function saveCache() {
                 core.info(`${JSON.stringify(cachePaths)}`);
                 const archiveFolder = yield utils.createTempDirectory();
                 const cacheFileName = utils.getCacheFileName(compressionMethod);
-                const archiveFolderReal = path.join(archiveFolder, repoName, repoBranchBase32, repoCommit);
+                const archiveFolderReal = path.join(archiveFolder, "../", repoName, repoBranchBase32, repoCommit);
                 // fs.mkdirSync(archiveFolderReal, { recursive: true });
                 yield io.mkdirP(archiveFolderReal);
                 if (fs.existsSync(archiveFolderReal)) {
