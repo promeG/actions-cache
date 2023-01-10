@@ -51,6 +51,7 @@ async function saveCache() {
       const cacheFileName = utils.getCacheFileName(compressionMethod);
       const archiveFolderReal = path.join(archiveFolder, repoName, repoBranchBase32, repoCommit);
       // fs.mkdirSync(archiveFolderReal, { recursive: true });
+      core.info(`Archive Path_1: ${archiveFolderReal}`);
       await io.mkdirP(archiveFolderReal)
       const archivePath = path.join(archiveFolderReal, cacheFileName);
 
