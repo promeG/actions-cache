@@ -50251,7 +50251,7 @@ const path = __importStar(__nccwpck_require__(1017));
 const state_1 = __nccwpck_require__(552);
 const io = __importStar(__nccwpck_require__(6451));
 const utils_1 = __nccwpck_require__(6928);
-// import * as fs from "fs";
+const fs = __importStar(__nccwpck_require__(7147));
 process.on("uncaughtException", (e) => core.info("warning: " + e.message));
 function saveCache() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -50284,11 +50284,16 @@ function saveCache() {
                 const cacheFileName = utils.getCacheFileName(compressionMethod);
                 const archiveFolderReal = path.join(archiveFolder, repoName, repoBranchBase32, repoCommit);
                 // fs.mkdirSync(archiveFolderReal, { recursive: true });
-                core.info(`Archive Path_1: ${archiveFolderReal}`);
                 yield io.mkdirP(archiveFolderReal);
+                if (fs.existsSync(archiveFolderReal)) {
+                    core.info(`Archive Path_1: ${archiveFolderReal}   exists`);
+                }
+                else {
+                    core.info(`Archive Path_1: ${archiveFolderReal}   NOT exists`);
+                }
                 const archivePath = path.join(archiveFolderReal, cacheFileName);
                 core.info(`Archive Path: ${archivePath}`);
-                yield tar_1.createTar(archiveFolder, cachePaths, compressionMethod);
+                yield tar_1.createTar(archiveFolderReal, cachePaths, compressionMethod);
                 if (true) {
                     yield tar_1.listTar(archivePath, compressionMethod);
                 }

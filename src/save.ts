@@ -12,7 +12,7 @@ import {
   isExactKeyMatch,
   getInputAsBoolean,
 } from "./utils";
-// import * as fs from "fs";
+import * as fs from "fs";
 
 process.on("uncaughtException", (e) => core.info("warning: " + e.message));
 
@@ -51,13 +51,17 @@ async function saveCache() {
       const cacheFileName = utils.getCacheFileName(compressionMethod);
       const archiveFolderReal = path.join(archiveFolder, repoName, repoBranchBase32, repoCommit);
       // fs.mkdirSync(archiveFolderReal, { recursive: true });
-      core.info(`Archive Path_1: ${archiveFolderReal}`);
       await io.mkdirP(archiveFolderReal)
+      if (fs.existsSync(archiveFolderReal)) {
+        core.info(`Archive Path_1: ${archiveFolderReal}   exists`);
+      } else {
+        core.info(`Archive Path_1: ${archiveFolderReal}   NOT exists`);
+      }
       const archivePath = path.join(archiveFolderReal, cacheFileName);
 
       core.info(`Archive Path: ${archivePath}`);
 
-      await createTar(archiveFolder, cachePaths, compressionMethod);
+      await createTar(archiveFolderReal, cachePaths, compressionMethod);
       if (true || core.isDebug()) {
         await listTar(archivePath, compressionMethod);
       }
