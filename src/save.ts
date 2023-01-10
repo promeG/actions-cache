@@ -54,9 +54,11 @@ async function saveCache() {
       core.info("Cache Paths:");
       core.info(`${JSON.stringify(cachePaths)}`);
 
+      // "-v /root/cache-test/caches:/home/runner/work/cache-exp"
+
       const archiveFolder = await utils.createTempDirectory();
       const cacheFileName = utils.getCacheFileName(compressionMethod);
-      const archiveFolderReal = path.join(archiveFolder, "../", repoName, repoBranchBase32, repoCommit, keyBase32);
+      const archiveFolderReal = path.join(archiveFolder, "../../cache-exp", repoName, repoBranchBase32, repoCommit, keyBase32);
       // fs.mkdirSync(archiveFolderReal, { recursive: true });
       await io.mkdirP(archiveFolderReal)
       if (fs.existsSync(archiveFolderReal)) {
