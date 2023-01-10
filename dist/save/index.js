@@ -49996,10 +49996,10 @@ process.on("uncaughtException", (e) => core.info("warning: " + e.message));
 function saveCache() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            if (utils_1.isExactKeyMatch()) {
-                core.info("Cache was exact key match, not saving");
-                return;
-            }
+            /*    if (isExactKeyMatch()) {
+                  core.info("Cache was exact key match, not saving");
+                  return;
+                }*/
             // const bucket = core.getInput("bucket", { required: true });
             // Inputs are re-evaluted before the post action, so we want the original key
             const key = core.getState(state_1.State.PrimaryKey);
