@@ -13,8 +13,9 @@ It's done using:
 
 ```
 tsc && ncc build -o dist/restore src/restore.ts && ncc build -o dist/save src/save.ts
-git tag -a v1 -f -m "v1 compatible release"
-git push -f --tags
+git commit -m "Use vercel/ncc"
+git tag -a -m "My first action release" v1.1
+git push --follow-tags
 ```
 
 This action enables caching dependencies to s3 compatible storage, e.g. minio, AWS S3
