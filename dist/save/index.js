@@ -50264,10 +50264,11 @@ function saveCache() {
             const base32 = __nccwpck_require__(2438);
             const repoName = core.getInput("repoName", { required: true });
             const repoBranch = core.getInput("repoName", { required: true });
-            const repoBranchBase32 = base32.encode('base64');
+            const repoBranchBase32 = base32.encode(repoBranch);
             const repoCommit = core.getInput("repoCommit", { required: true });
             // Inputs are re-evaluted before the post action, so we want the original key
             const key = core.getState(state_1.State.PrimaryKey);
+            const keyBase32 = base32.encode(key);
             // const useFallback = getInputAsBoolean("use-fallback");
             const paths = utils_1.getInputAsArray("path");
             try {
@@ -50284,7 +50285,7 @@ function saveCache() {
                 core.info(`${JSON.stringify(cachePaths)}`);
                 const archiveFolder = yield utils.createTempDirectory();
                 const cacheFileName = utils.getCacheFileName(compressionMethod);
-                const archiveFolderReal = path.join(archiveFolder, "../", repoName, repoBranchBase32, repoCommit);
+                const archiveFolderReal = path.join(archiveFolder, "../", repoName, repoBranchBase32, repoCommit, keyBase32);
                 // fs.mkdirSync(archiveFolderReal, { recursive: true });
                 yield io.mkdirP(archiveFolderReal);
                 if (fs.existsSync(archiveFolderReal)) {
@@ -50295,6 +50296,7 @@ function saveCache() {
                 }
                 const archivePath = path.join(archiveFolderReal, cacheFileName);
                 core.info(`Archive Path: ${archivePath}`);
+                core.info(`Cache Key: ${key}`);
                 yield tar_1.createTar(archiveFolderReal, cachePaths, compressionMethod);
                 if (true) {
                     yield tar_1.listTar(archivePath, compressionMethod);
