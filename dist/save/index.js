@@ -50262,19 +50262,13 @@ function saveCache() {
                   return;
                 }*/
             const base32 = __nccwpck_require__(2438);
-            const repoNameFromEnv = process.env['GITHUB_REPOSITORY'];
-            const repoBranchFromEnv = process.env['GITHUB_HEAD_REF'];
-            const repoCommitFromEnv = process.env['GITHUB_SHA'];
-            core.info(`repoNameFromEnv: ${repoNameFromEnv}`);
-            core.info(`repoBranchFromEnv: ${repoBranchFromEnv}`);
-            core.info(`repoCommitFromEnv: ${repoCommitFromEnv}`);
-            for (const [key, value] of Object.entries(process.env)) {
-                core.info(key + " : " + value);
-            }
-            const repoName = core.getInput("repoName", { required: true });
-            const repoBranch = core.getInput("repoName", { required: true });
+            const repoName = process.env['GITHUB_REPOSITORY'];
+            const repoBranch = process.env['GITHUB_REF_NAME'];
+            const repoCommit = process.env['GITHUB_SHA'];
+            core.info(`repoNameFromEnv: ${repoName}`);
+            core.info(`repoBranchFromEnv: ${repoBranch}`);
+            core.info(`repoCommitFromEnv: ${repoCommit}`);
             const repoBranchBase32 = base32.encode(repoBranch);
-            const repoCommit = core.getInput("repoCommit", { required: true });
             // Inputs are re-evaluted before the post action, so we want the original key
             const key = core.getState(state_1.State.PrimaryKey);
             const keyBase32 = base32.encode(key); // 并非标准的base32算法，参考：https://github.com/agnoster/base32-js

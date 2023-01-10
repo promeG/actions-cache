@@ -2,15 +2,15 @@ name: "s3 cache"
 author: tespkg
 description: "S3 actions cache with actions/cache@v2 passthrough"
 inputs:
-  repoName:
-    description: current repo's name
-    required: true
-  repoBranch:
-    description: current repo's branch
-    required: true
-  repoCommit:
-    description: current repo's commit hash
-    required: true
+#  repoName:
+#    description: current repo's name
+#    required: true
+#  repoBranch:
+#    description: current repo's branch
+#    required: true
+#  repoCommit:
+#    description: current repo's commit hash
+#    required: true
   path:
     description: "A list of files, directories, and wildcard patterns to cache and restore"
     required: true
