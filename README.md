@@ -20,8 +20,8 @@ npm install base32
 tsc && ncc build -o dist/restore src/restore.ts && ncc build -o dist/save src/save.ts
 git add .
 git commit -m "Use vercel/ncc"
-git tag -a -m "My first action release" v1.1
-git push --follow-tags
+git tag -a -m "" v1.1
+git push origin main --follow-tags
 ```
 
 This action enables caching dependencies to s3 compatible storage, e.g. minio, AWS S3

@@ -4,6 +4,7 @@ import { createTar, listTar } from "@actions/cache/lib/internal/tar";
 import * as core from "@actions/core";
 import * as path from "path";
 import { State } from "./state";
+import * as io from '@actions/io'
 import {
   getInputAsArray,
   isGhes,
@@ -11,7 +12,7 @@ import {
   isExactKeyMatch,
   getInputAsBoolean,
 } from "./utils";
-import * as fs from "fs";
+// import * as fs from "fs";
 
 process.on("uncaughtException", (e) => core.info("warning: " + e.message));
 
@@ -49,7 +50,8 @@ async function saveCache() {
       const archiveFolder = await utils.createTempDirectory();
       const cacheFileName = utils.getCacheFileName(compressionMethod);
       const archiveFolderReal = path.join(archiveFolder, repoName, repoBranchBase32, repoCommit);
-      fs.mkdirSync(archiveFolderReal, { recursive: true });
+      // fs.mkdirSync(archiveFolderReal, { recursive: true });
+      await io.mkdirP(archiveFolderReal)
       const archivePath = path.join(archiveFolderReal, cacheFileName);
 
       core.info(`Archive Path: ${archivePath}`);

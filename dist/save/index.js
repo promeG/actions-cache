@@ -50249,8 +50249,9 @@ const tar_1 = __nccwpck_require__(6360);
 const core = __importStar(__nccwpck_require__(260));
 const path = __importStar(__nccwpck_require__(1017));
 const state_1 = __nccwpck_require__(552);
+const io = __importStar(__nccwpck_require__(6451));
 const utils_1 = __nccwpck_require__(6928);
-const fs = __importStar(__nccwpck_require__(7147));
+// import * as fs from "fs";
 process.on("uncaughtException", (e) => core.info("warning: " + e.message));
 function saveCache() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -50282,7 +50283,8 @@ function saveCache() {
                 const archiveFolder = yield utils.createTempDirectory();
                 const cacheFileName = utils.getCacheFileName(compressionMethod);
                 const archiveFolderReal = path.join(archiveFolder, repoName, repoBranchBase32, repoCommit);
-                fs.mkdirSync(archiveFolderReal, { recursive: true });
+                // fs.mkdirSync(archiveFolderReal, { recursive: true });
+                yield io.mkdirP(archiveFolderReal);
                 const archivePath = path.join(archiveFolderReal, cacheFileName);
                 core.info(`Archive Path: ${archivePath}`);
                 yield tar_1.createTar(archiveFolder, cachePaths, compressionMethod);
